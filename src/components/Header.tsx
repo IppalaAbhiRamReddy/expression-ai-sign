@@ -58,7 +58,7 @@ const Header = () => {
               <DropdownMenuContent>
                 <DropdownMenuItem>English</DropdownMenuItem>
                 <DropdownMenuItem>हिंदी</DropdownMenuItem>
-                <DropdownMenuItem>বাংলা</DropdownMenuItem>
+                <DropdownMenuItem>తెలుగు</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
 

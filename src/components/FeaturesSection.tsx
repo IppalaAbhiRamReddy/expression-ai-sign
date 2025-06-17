@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 const FeaturesSection = () => {
@@ -21,12 +20,7 @@ const FeaturesSection = () => {
     {
       icon: "🌐",
       title: "Multilingual Output",
-      description: "Translate to Hindi, English, Bengali and other regional languages."
-    },
-    {
-      icon: "📱",
-      title: "Offline Mode",
-      description: "Core functionality available without internet connection."
+      description: "Translate to Telugu, Hindi, English and other regional languages."
     },
     {
       icon: "🎓",
