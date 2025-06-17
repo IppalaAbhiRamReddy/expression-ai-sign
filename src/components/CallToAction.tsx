@@ -9,7 +9,9 @@ const CallToAction = () => {
         {/* Dimmed background with gradient overlay */}
         <div className="w-full h-full bg-gradient-to-br from-blue-900/90 via-purple-900/90 to-orange-900/90"></div>
         {/* Video pattern placeholder */}
-        <div className="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml,%3Csvg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Cpath d="M50 15L60 35L80 35L65 50L70 70L50 60L30 70L35 50L20 35L40 35Z"/%3E%3C/g%3E%3C/svg%3E')]"></div>
+        <div className="absolute inset-0 opacity-20" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M50 15L60 35L80 35L65 50L70 70L50 60L30 70L35 50L20 35L40 35Z'/%3E%3C/g%3E%3C/svg%3E")`
+        }}></div>
       </div>
 
       {/* Content */}
