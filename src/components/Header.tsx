@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Globe } from "lucide-react";
+import { Link } from "react-router-dom";
 import { 
   DropdownMenu,
   DropdownMenuContent,
@@ -26,10 +27,10 @@ const Header = () => {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <a href="/" className="flex items-center space-x-2 transition-transform hover:scale-105">
+            <Link to="/" className="flex items-center space-x-2 transition-transform hover:scale-105">
               <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-blue-600 to-orange-500"></div>
               <span className="text-xl font-bold text-foreground">SignVerse</span>
-            </a>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
@@ -64,8 +65,12 @@ const Header = () => {
 
             {/* Auth Buttons */}
             <div className="hidden sm:flex items-center space-x-2">
-              <Button variant="ghost" size="sm">Login</Button>
-              <Button size="sm">Sign Up</Button>
+              <Button variant="ghost" size="sm" asChild>
+                <Link to="/auth">Login</Link>
+              </Button>
+              <Button size="sm" asChild>
+                <Link to="/auth">Sign Up</Link>
+              </Button>
             </div>
 
             {/* Mobile Menu Button */}
@@ -97,8 +102,12 @@ const Header = () => {
                 </a>
               ))}
               <div className="pt-2 border-t space-y-2">
-                <Button variant="ghost" size="sm" className="w-full justify-start">Login</Button>
-                <Button size="sm" className="w-full">Sign Up</Button>
+                <Button variant="ghost" size="sm" className="w-full justify-start" asChild>
+                  <Link to="/auth">Login</Link>
+                </Button>
+                <Button size="sm" className="w-full" asChild>
+                  <Link to="/auth">Sign Up</Link>
+                </Button>
               </div>
             </div>
           </div>
