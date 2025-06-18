@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -6,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { 
   ArrowLeft, 
@@ -15,9 +15,12 @@ import {
   Pause, 
   Play, 
   Copy,
-  Trash2
+  Trash2,
+  Video,
+  Upload
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { UploadVideoTranslation } from "@/components/UploadVideoTranslation";
 
 export default function LiveTranslate() {
   const [isStreaming, setIsStreaming] = useState(false);
@@ -60,7 +63,6 @@ export default function LiveTranslate() {
         description: "Live translation is now active",
       });
 
-      // Simulate translation activity
       simulateTranslation();
     } catch (error) {
       toast({
@@ -90,7 +92,6 @@ export default function LiveTranslate() {
   };
 
   const simulateTranslation = () => {
-    // Simulate real-time translation updates
     const sampleTexts = [
       "Hello, how are you?",
       "I am learning sign language",
@@ -107,9 +108,8 @@ export default function LiveTranslate() {
       }
 
       setTranslatedText(sampleTexts[textIndex % sampleTexts.length]);
-      setAccuracy(Math.floor(Math.random() * 20) + 80); // 80-100%
+      setAccuracy(Math.floor(Math.random() * 20) + 80);
       
-      // Simulate NMF detection
       setNmfStatus({
         eyebrowRaised: Math.random() > 0.5,
         headTiltLeft: Math.random() > 0.7,
@@ -173,9 +173,9 @@ export default function LiveTranslate() {
               </Button>
             </Link>
             <div>
-              <h1 className="text-2xl font-bold">Live ISL Translator</h1>
+              <h1 className="text-2xl font-bold">ISL Translator</h1>
               <p className="text-muted-foreground">
-                Use your webcam to translate Indian Sign Language with facial expressions.
+                Translate Indian Sign Language using live camera or video upload.
               </p>
             </div>
           </div>
@@ -184,238 +184,257 @@ export default function LiveTranslate() {
 
       {/* Main Content */}
       <div className="container mx-auto px-6 py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Camera Stream */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Camera className="h-5 w-5" />
-                  Camera Stream
-                  <Badge variant={isStreaming ? "default" : "secondary"}>
-                    {isStreaming ? "🟢 Live" : "🔴 Offline"}
-                  </Badge>
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {/* Video Stream */}
-                <div className="relative aspect-video bg-muted rounded-lg overflow-hidden">
-                  {isStreaming ? (
-                    <video
-                      ref={videoRef}
-                      className="w-full h-full object-cover"
-                      autoPlay
-                      playsInline
-                      muted
-                      aria-label="Live camera feed for sign language translation"
-                    />
-                  ) : (
-                    <div className="flex items-center justify-center h-full">
-                      <div className="text-center">
-                        <CameraOff className="h-12 w-12 mx-auto mb-2 text-muted-foreground" />
-                        <p className="text-muted-foreground">Camera not active</p>
-                      </div>
-                    </div>
-                  )}
-                  
-                  {isStreaming && isPaused && (
-                    <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                      <div className="text-white text-center">
-                        <Pause className="h-8 w-8 mx-auto mb-2" />
-                        <p>Translation Paused</p>
-                      </div>
-                    </div>
-                  )}
-                </div>
+        <Tabs defaultValue="live" className="w-full">
+          <TabsList className="grid w-full grid-cols-2 mb-6">
+            <TabsTrigger value="live" className="flex items-center gap-2">
+              <Video className="h-4 w-4" />
+              Live Translation
+            </TabsTrigger>
+            <TabsTrigger value="upload" className="flex items-center gap-2">
+              <Upload className="h-4 w-4" />
+              Upload Video
+            </TabsTrigger>
+          </TabsList>
 
-                {/* Camera Controls */}
-                <div className="flex flex-wrap gap-2">
-                  <Button
-                    onClick={isStreaming ? stopCamera : startCamera}
-                    variant={isStreaming ? "destructive" : "default"}
-                    className="flex-1"
-                  >
-                    {isStreaming ? (
-                      <>
-                        <CameraOff className="h-4 w-4 mr-2" />
-                        Stop Camera
-                      </>
-                    ) : (
-                      <>
-                        <Camera className="h-4 w-4 mr-2" />
-                        Start Camera
-                      </>
-                    )}
-                  </Button>
-                  
-                  {isStreaming && (
-                    <Button
-                      onClick={() => setIsPaused(!isPaused)}
-                      variant="outline"
-                    >
-                      {isPaused ? (
-                        <Play className="h-4 w-4" />
+          <TabsContent value="live">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Live Camera Stream */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Camera className="h-5 w-5" />
+                      Camera Stream
+                      <Badge variant={isStreaming ? "default" : "secondary"}>
+                        {isStreaming ? "🟢 Live" : "🔴 Offline"}
+                      </Badge>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    {/* Video Stream */}
+                    <div className="relative aspect-video bg-muted rounded-lg overflow-hidden">
+                      {isStreaming ? (
+                        <video
+                          ref={videoRef}
+                          className="w-full h-full object-cover"
+                          autoPlay
+                          playsInline
+                          muted
+                          aria-label="Live camera feed for sign language translation"
+                        />
                       ) : (
-                        <Pause className="h-4 w-4" />
+                        <div className="flex items-center justify-center h-full">
+                          <div className="text-center">
+                            <CameraOff className="h-12 w-12 mx-auto mb-2 text-muted-foreground" />
+                            <p className="text-muted-foreground">Camera not active</p>
+                          </div>
+                        </div>
                       )}
-                    </Button>
-                  )}
-                </div>
+                      
+                      {isStreaming && isPaused && (
+                        <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                          <div className="text-white text-center">
+                            <Pause className="h-8 w-8 mx-auto mb-2" />
+                            <p>Translation Paused</p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
 
-                {/* Camera Settings */}
-                <div className="grid grid-cols-2 gap-2">
-                  <div>
-                    <label className="text-sm font-medium mb-1 block">Resolution</label>
-                    <Select value={resolution} onValueChange={setResolution}>
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="360p">360p</SelectItem>
-                        <SelectItem value="480p">480p</SelectItem>
-                        <SelectItem value="720p">720p</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  
-                  <div>
-                    <label className="text-sm font-medium mb-1 block">Language</label>
-                    <Select value={language} onValueChange={setLanguage}>
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="English">English</SelectItem>
-                        <SelectItem value="Hindi">हिंदी</SelectItem>
-                        <SelectItem value="Telugu">తెలుగు</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
+                    {/* Camera Controls */}
+                    <div className="flex flex-wrap gap-2">
+                      <Button
+                        onClick={isStreaming ? stopCamera : startCamera}
+                        variant={isStreaming ? "destructive" : "default"}
+                        className="flex-1"
+                      >
+                        {isStreaming ? (
+                          <>
+                            <CameraOff className="h-4 w-4 mr-2" />
+                            Stop Camera
+                          </>
+                        ) : (
+                          <>
+                            <Camera className="h-4 w-4 mr-2" />
+                            Start Camera
+                          </>
+                        )}
+                      </Button>
+                      
+                      {isStreaming && (
+                        <Button
+                          onClick={() => setIsPaused(!isPaused)}
+                          variant="outline"
+                        >
+                          {isPaused ? (
+                            <Play className="h-4 w-4" />
+                          ) : (
+                            <Pause className="h-4 w-4" />
+                          )}
+                        </Button>
+                      )}
+                    </div>
 
-          {/* Translation Panel */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="space-y-6"
-          >
-            {/* Translation Output */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center justify-between">
-                  <span>Translation Output</span>
-                  {accuracy > 0 && (
-                    <Badge variant="outline">
-                      Accuracy: {accuracy}%
-                    </Badge>
-                  )}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div 
-                  className="min-h-[120px] p-4 bg-muted rounded-lg mb-4"
-                  aria-live="polite"
-                  aria-label="Translation output"
-                >
-                  {translatedText ? (
-                    <motion.p
-                      key={translatedText}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="text-lg"
+                    {/* Camera Settings */}
+                    <div className="grid grid-cols-2 gap-2">
+                      <div>
+                        <label className="text-sm font-medium mb-1 block">Resolution</label>
+                        <Select value={resolution} onValueChange={setResolution}>
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="360p">360p</SelectItem>
+                            <SelectItem value="480p">480p</SelectItem>
+                            <SelectItem value="720p">720p</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      <div>
+                        <label className="text-sm font-medium mb-1 block">Language</label>
+                        <Select value={language} onValueChange={setLanguage}>
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="English">English</SelectItem>
+                            <SelectItem value="Hindi">हिंदी</SelectItem>
+                            <SelectItem value="Telugu">తెలుగు</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+
+              {/* Translation Panel */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="space-y-6"
+              >
+                {/* Translation Output */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center justify-between">
+                      <span>Translation Output</span>
+                      {accuracy > 0 && (
+                        <Badge variant="outline">
+                          Accuracy: {accuracy}%
+                        </Badge>
+                      )}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div 
+                      className="min-h-[120px] p-4 bg-muted rounded-lg mb-4"
+                      aria-live="polite"
+                      aria-label="Translation output"
                     >
-                      {translatedText}
-                    </motion.p>
-                  ) : (
-                    <p className="text-muted-foreground italic">
-                      Translation will appear here...
-                    </p>
-                  )}
-                </div>
+                      {translatedText ? (
+                        <motion.p
+                          key={translatedText}
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="text-lg"
+                        >
+                          {translatedText}
+                        </motion.p>
+                      ) : (
+                        <p className="text-muted-foreground italic">
+                          Translation will appear here...
+                        </p>
+                      )}
+                    </div>
 
-                <div className="flex flex-wrap gap-2">
-                  <Button
-                    onClick={copyToClipboard}
-                    variant="outline"
-                    size="sm"
-                    disabled={!translatedText}
-                  >
-                    <Copy className="h-4 w-4 mr-2" />
-                    Copy
-                  </Button>
-                  <Button
-                    onClick={downloadTranslation}
-                    variant="outline"
-                    size="sm"
-                    disabled={!translatedText}
-                  >
-                    <Download className="h-4 w-4 mr-2" />
-                    Download
-                  </Button>
-                  <Button
-                    onClick={clearOutput}
-                    variant="outline"
-                    size="sm"
-                    disabled={!translatedText}
-                  >
-                    <Trash2 className="h-4 w-4 mr-2" />
-                    Clear
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+                    <div className="flex flex-wrap gap-2">
+                      <Button
+                        onClick={copyToClipboard}
+                        variant="outline"
+                        size="sm"
+                        disabled={!translatedText}
+                      >
+                        <Copy className="h-4 w-4 mr-2" />
+                        Copy
+                      </Button>
+                      <Button
+                        onClick={downloadTranslation}
+                        variant="outline"
+                        size="sm"
+                        disabled={!translatedText}
+                      >
+                        <Download className="h-4 w-4 mr-2" />
+                        Download
+                      </Button>
+                      <Button
+                        onClick={clearOutput}
+                        variant="outline"
+                        size="sm"
+                        disabled={!translatedText}
+                      >
+                        <Trash2 className="h-4 w-4 mr-2" />
+                        Clear
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
 
-            {/* NMF Status Panel */}
-            <Card>
-              <CardHeader>
-                <CardTitle>NMF Detection Status</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 gap-3">
-                  <div className="flex items-center justify-between">
-                    <span>Eyebrow Raised</span>
-                    <span>{nmfStatus.eyebrowRaised ? "✅" : "❌"}</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>Head Tilt Left</span>
-                    <span>{nmfStatus.headTiltLeft ? "✅" : "❌"}</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>Mouth Movement</span>
-                    <span>{nmfStatus.mouthMovement ? "✅" : "❌"}</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                {/* NMF Status Panel */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle>NMF Detection Status</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-1 gap-3">
+                      <div className="flex items-center justify-between">
+                        <span>Eyebrow Raised</span>
+                        <span>{nmfStatus.eyebrowRaised ? "✅" : "❌"}</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span>Head Tilt Left</span>
+                        <span>{nmfStatus.headTiltLeft ? "✅" : "❌"}</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span>Mouth Movement</span>
+                        <span>{nmfStatus.mouthMovement ? "✅" : "❌"}</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
 
-            {/* Tools Panel */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Options</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <label htmlFor="subtitles" className="text-sm font-medium">
-                    Show Subtitles
-                  </label>
-                  <Switch
-                    id="subtitles"
-                    checked={subtitlesEnabled}
-                    onCheckedChange={setSubtitlesEnabled}
-                  />
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        </div>
+                {/* Tools Panel */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Options</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <label htmlFor="subtitles" className="text-sm font-medium">
+                        Show Subtitles
+                      </label>
+                      <Switch
+                        id="subtitles"
+                        checked={subtitlesEnabled}
+                        onCheckedChange={setSubtitlesEnabled}
+                      />
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="upload">
+            <UploadVideoTranslation />
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
