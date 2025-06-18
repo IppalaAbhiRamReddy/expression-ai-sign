@@ -19,6 +19,8 @@ const Header = () => {
     { name: "Translate", href: "#translate" },
     { name: "Learn", href: "#learn" },
     { name: "Contact", href: "#contact" },
+    { name: "Dashboard", href: "/dashboard" },
+    { name: "Live Translate", href: "/live-translate" },
   ];
 
   return (
@@ -36,13 +38,23 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8" role="navigation">
             {menuItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus:text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-sm px-2 py-1"
-              >
-                {item.name}
-              </a>
+              item.href.startsWith("/") ? (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus:text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-sm px-2 py-1"
+                >
+                  {item.name}
+                </Link>
+              ) : (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus:text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-sm px-2 py-1"
+                >
+                  {item.name}
+                </a>
+              )
             ))}
           </nav>
 
@@ -92,14 +104,25 @@ const Header = () => {
           <div className="md:hidden border-t">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {menuItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-md"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.name}
-                </a>
+                item.href.startsWith("/") ? (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-md"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                ) : (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-md"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.name}
+                  </a>
+                )
               ))}
               <div className="pt-2 border-t space-y-2">
                 <Button variant="ghost" size="sm" className="w-full justify-start" asChild>
