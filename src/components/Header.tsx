@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Globe } from "lucide-react";
@@ -16,11 +15,10 @@ const Header = () => {
   const menuItems = [
     { name: "Home", href: "#home" },
     { name: "Features", href: "#features" },
-    { name: "Translate", href: "#translate" },
+    { name: "Translate", href: "/live-translate" },
     { name: "Learn", href: "#learn" },
     { name: "Contact", href: "#contact" },
     { name: "Dashboard", href: "/dashboard" },
-    { name: "Live Translate", href: "/live-translate" },
   ];
 
   return (
