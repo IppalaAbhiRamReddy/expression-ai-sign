@@ -1,6 +1,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { DashboardSidebar } from "@/components/DashboardSidebar";
 import { DashboardHeader } from "@/components/DashboardHeader";
@@ -14,6 +15,15 @@ export type DashboardView = "overview" | "live-translate" | "upload" | "learn" |
 
 const Dashboard = () => {
   const [currentView, setCurrentView] = useState<DashboardView>("overview");
+  const navigate = useNavigate();
+
+  const handleNavigate = (view: DashboardView) => {
+    if (view === "live-translate") {
+      navigate("/live-translate");
+    } else {
+      setCurrentView(view);
+    }
+  };
 
   const renderContent = () => {
     switch (currentView) {
@@ -26,7 +36,7 @@ const Dashboard = () => {
             className="space-y-6"
           >
             <OverviewCards />
-            <QuickToolsPanel onNavigate={setCurrentView} />
+            <QuickToolsPanel onNavigate={handleNavigate} />
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <ActivityFeed />
               <LearningShortcut />
@@ -35,15 +45,6 @@ const Dashboard = () => {
         );
       case "settings":
         return <UserProfilePanel />;
-      case "live-translate":
-        return (
-          <div className="flex items-center justify-center h-96">
-            <div className="text-center">
-              <h2 className="text-2xl font-bold mb-4">Live Translation</h2>
-              <p className="text-muted-foreground">Live translation feature coming soon...</p>
-            </div>
-          </div>
-        );
       case "upload":
         return (
           <div className="flex items-center justify-center h-96">
@@ -77,7 +78,7 @@ const Dashboard = () => {
   return (
     <SidebarProvider defaultOpen>
       <div className="min-h-screen flex w-full">
-        <DashboardSidebar currentView={currentView} onNavigate={setCurrentView} />
+        <DashboardSidebar currentView={currentView} onNavigate={handleNavigate} />
         <SidebarInset className="flex-1">
           <DashboardHeader />
           <main className="flex-1 p-6" role="main">
