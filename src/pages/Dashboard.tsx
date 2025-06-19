@@ -21,6 +21,8 @@ const Dashboard = () => {
       navigate("/live-translate");
     } else if (view === "learn") {
       navigate("/learn");
+    } else if (view === "settings") {
+      navigate("/settings");
     } else {
       setCurrentView(view);
     }
