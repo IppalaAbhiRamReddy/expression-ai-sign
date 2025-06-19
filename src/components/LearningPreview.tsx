@@ -9,18 +9,18 @@ const LearningPreview = () => {
 
   const learningModules = [
     {
-      title: "Basic Greetings",
+      title: "Sign Language Alphabets",
       level: "Beginner",
       duration: "15 min",
-      thumbnail: "👋",
-      description: "Learn essential greeting signs like hello, goodbye, and nice to meet you."
+      thumbnail: "🔤",
+      description: "Learn the complete ISL alphabet and basic letter formations for communication."
     },
     {
-      title: "Family Members",
+      title: "Basic Greetings",
       level: "Beginner", 
       duration: "20 min",
-      thumbnail: "👨‍👩‍👧‍👦",
-      description: "Master signs for family relationships and household vocabulary."
+      thumbnail: "👋",
+      description: "Master essential greeting signs like hello, goodbye, and nice to meet you."
     },
     {
       title: "Daily Activities",
@@ -30,11 +30,11 @@ const LearningPreview = () => {
       description: "Express everyday actions and routines with confidence."
     },
     {
-      title: "Emotions & Feelings",
+      title: "Family Meeting",
       level: "Intermediate",
       duration: "30 min",
-      thumbnail: "😊",
-      description: "Convey complex emotions and psychological states effectively."
+      thumbnail: "👨‍👩‍👧‍👦",
+      description: "Learn signs for family relationships and communication in family gatherings."
     }
   ];
 

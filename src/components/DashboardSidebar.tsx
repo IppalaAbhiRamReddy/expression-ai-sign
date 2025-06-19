@@ -5,7 +5,6 @@ import {
   Video, 
   Upload, 
   GraduationCap, 
-  Activity, 
   Settings, 
   LogOut,
   Globe
@@ -50,11 +49,6 @@ const menuItems = [
     title: "Learn ISL",
     icon: GraduationCap,
     view: "learn" as DashboardView,
-  },
-  {
-    title: "Activity History",
-    icon: Activity,
-    view: "activity" as DashboardView,
   },
   {
     title: "Settings",

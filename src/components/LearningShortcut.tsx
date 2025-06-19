@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { GraduationCap, Hand, Smile, MapPin } from "lucide-react";
+import { GraduationCap, Hand, Smile, MapPin, Users } from "lucide-react";
 
 const learningModules = [
   {
@@ -13,16 +13,22 @@ const learningModules = [
     color: "text-blue-600",
   },
   {
-    title: "Face Expressions & NMF",
-    progress: 45,
+    title: "Basic Greetings",
+    progress: 60,
     icon: Smile,
     color: "text-green-600",
   },
   {
-    title: "Regional Gestures",
-    progress: 20,
+    title: "Daily Activities",
+    progress: 45,
     icon: MapPin,
     color: "text-purple-600",
+  },
+  {
+    title: "Family Meeting",
+    progress: 20,
+    icon: Users,
+    color: "text-orange-600",
   },
 ];
 

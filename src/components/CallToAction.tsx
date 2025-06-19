@@ -49,20 +49,13 @@ const CallToAction = () => {
           </div>
 
           {/* CTA Button */}
-          <div className="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center">
+          <div className="flex justify-center">
             <Button 
               size="lg" 
               className="w-full sm:w-auto bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold py-4 px-8 transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
               asChild
             >
               <Link to="/auth">Create Free Account</Link>
-            </Button>
-            <Button 
-              variant="outline" 
-              size="lg" 
-              className="w-full sm:w-auto border-white text-white hover:bg-white hover:text-gray-900 py-4 px-8 transition-all duration-300"
-            >
-              Learn More
             </Button>
           </div>
 

@@ -11,8 +11,7 @@ const Footer = () => {
       links: [
         { name: "Live Translation", href: "/live-translate" },
         { name: "Upload Video", href: "/live-translate" },
-        { name: "Learning Path", href: "#learn" },
-        { name: "API Access", href: "#api" }
+        { name: "Learning Path", href: "#learn" }
       ]
     },
     {

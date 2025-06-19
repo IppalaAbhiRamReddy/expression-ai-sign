@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   const scrollToDemo = () => {
-    const demoSection = document.getElementById('learn');
+    const demoSection = document.getElementById('features');
     if (demoSection) {
       demoSection.scrollIntoView({ behavior: 'smooth' });
     }

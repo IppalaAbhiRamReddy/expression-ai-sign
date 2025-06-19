@@ -11,7 +11,7 @@ import { ActivityFeed } from "@/components/ActivityFeed";
 import { LearningShortcut } from "@/components/LearningShortcut";
 import { UserProfilePanel } from "@/components/UserProfilePanel";
 
-export type DashboardView = "overview" | "live-translate" | "upload" | "learn" | "activity" | "settings";
+export type DashboardView = "overview" | "live-translate" | "upload" | "learn" | "settings";
 
 const Dashboard = () => {
   const [currentView, setCurrentView] = useState<DashboardView>("overview");
@@ -61,13 +61,6 @@ const Dashboard = () => {
               <h2 className="text-2xl font-bold mb-4">Learn ISL</h2>
               <p className="text-muted-foreground">Learning modules coming soon...</p>
             </div>
-          </div>
-        );
-      case "activity":
-        return (
-          <div className="space-y-6">
-            <h1 className="text-3xl font-bold">Activity History</h1>
-            <ActivityFeed showAll />
           </div>
         );
       default:
