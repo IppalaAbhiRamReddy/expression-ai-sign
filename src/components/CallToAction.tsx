@@ -1,5 +1,6 @@
 
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const CallToAction = () => {
   return (
@@ -52,8 +53,9 @@ const CallToAction = () => {
             <Button 
               size="lg" 
               className="w-full sm:w-auto bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold py-4 px-8 transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+              asChild
             >
-              Create Free Account
+              <Link to="/auth">Create Free Account</Link>
             </Button>
             <Button 
               variant="outline" 

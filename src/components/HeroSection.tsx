@@ -1,8 +1,16 @@
 
 import { Button } from "@/components/ui/button";
 import { ArrowDown } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
+  const scrollToDemo = () => {
+    const demoSection = document.getElementById('learn');
+    if (demoSection) {
+      demoSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 via-white to-orange-50" role="banner">
       {/* Background Video Placeholder */}
@@ -34,10 +42,10 @@ const HeroSection = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 animate-fade-in" style={{ animationDelay: "0.4s" }}>
-            <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 transition-all duration-300 transform hover:scale-105">
-              Start Translating Now
+            <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 transition-all duration-300 transform hover:scale-105" asChild>
+              <Link to="/live-translate">Start Translating Now</Link>
             </Button>
-            <Button variant="outline" size="lg" className="w-full sm:w-auto hover:bg-orange-50 transition-all duration-300">
+            <Button variant="outline" size="lg" className="w-full sm:w-auto hover:bg-orange-50 transition-all duration-300" onClick={scrollToDemo}>
               Watch Demo Video
             </Button>
           </div>

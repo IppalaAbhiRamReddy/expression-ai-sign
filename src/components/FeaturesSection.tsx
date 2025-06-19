@@ -1,4 +1,6 @@
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 
 const FeaturesSection = () => {
   const features = [
@@ -70,12 +72,12 @@ const FeaturesSection = () => {
         {/* Bottom CTA */}
         <div className="text-center mt-16">
           <p className="text-muted-foreground mb-4">Ready to experience the future of sign language translation?</p>
-          <a 
-            href="#translate" 
+          <Link 
+            to="/live-translate" 
             className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-2 py-1"
           >
             Try it now →
-          </a>
+          </Link>
         </div>
       </div>
     </section>

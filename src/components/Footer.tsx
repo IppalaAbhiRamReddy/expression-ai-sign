@@ -2,14 +2,15 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Linkedin, Youtube } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const footerSections = [
     {
       title: "Platform",
       links: [
-        { name: "Live Translation", href: "#translate" },
-        { name: "Upload Video", href: "#upload" },
+        { name: "Live Translation", href: "/live-translate" },
+        { name: "Upload Video", href: "/live-translate" },
         { name: "Learning Path", href: "#learn" },
         { name: "API Access", href: "#api" }
       ]
@@ -86,12 +87,21 @@ const Footer = () => {
               <ul className="space-y-3">
                 {section.links.map((link, linkIndex) => (
                   <li key={linkIndex}>
-                    <a 
-                      href={link.href}
-                      className="text-gray-300 hover:text-white transition-colors duration-200 text-sm focus:outline-none focus:text-white focus:underline"
-                    >
-                      {link.name}
-                    </a>
+                    {link.href.startsWith("/") ? (
+                      <Link 
+                        to={link.href}
+                        className="text-gray-300 hover:text-white transition-colors duration-200 text-sm focus:outline-none focus:text-white focus:underline"
+                      >
+                        {link.name}
+                      </Link>
+                    ) : (
+                      <a 
+                        href={link.href}
+                        className="text-gray-300 hover:text-white transition-colors duration-200 text-sm focus:outline-none focus:text-white focus:underline"
+                      >
+                        {link.name}
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>
