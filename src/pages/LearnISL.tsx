@@ -15,6 +15,12 @@ import { useNavigate } from "react-router-dom";
 const LearnISL = () => {
   const navigate = useNavigate();
 
+  const handleModuleSelect = (moduleId: string) => {
+    console.log(`Starting module: ${moduleId}`);
+    // In a real app, this would navigate to the specific module
+    // navigate(`/learn/${moduleId}`);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* Page Header */}
@@ -46,7 +52,7 @@ const LearnISL = () => {
         <LearningProgressWidget />
 
         {/* Learning Modules Grid */}
-        <LearningModulesGrid />
+        <LearningModulesGrid onModuleSelect={handleModuleSelect} />
 
         {/* Additional Resources */}
         <ExtrasSection />

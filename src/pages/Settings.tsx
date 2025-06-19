@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, User, Globe, Shield, Download, Upload, Moon, Sun } from "lucide-react";
@@ -397,7 +396,7 @@ const Settings = () => {
                       <h4 className="font-medium">Status</h4>
                       <p className="text-sm text-green-600">✅ Models up-to-date</p>
                     </div>
-                    <Button variant="outline" variant="destructive">
+                    <Button variant="destructive">
                       Clear Offline Data
                     </Button>
                   </div>
