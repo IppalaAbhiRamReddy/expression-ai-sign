@@ -1,9 +1,9 @@
-
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { GraduationCap, Hand, Smile, MapPin, Users } from "lucide-react";
+import { GraduationCap, Hand, Smile, Coffee, Users } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const learningModules = [
   {
@@ -21,7 +21,7 @@ const learningModules = [
   {
     title: "Daily Activities",
     progress: 45,
-    icon: MapPin,
+    icon: Coffee,
     color: "text-purple-600",
   },
   {
@@ -61,8 +61,8 @@ export function LearningShortcut() {
           </motion.div>
         ))}
         
-        <Button className="w-full mt-4" variant="outline">
-          Go to Learning Section
+        <Button className="w-full mt-4" variant="outline" asChild>
+          <Link to="/learn">Go to Learning Section</Link>
         </Button>
       </CardContent>
     </Card>

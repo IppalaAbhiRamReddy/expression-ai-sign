@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +19,8 @@ const Dashboard = () => {
   const handleNavigate = (view: DashboardView) => {
     if (view === "live-translate") {
       navigate("/live-translate");
+    } else if (view === "learn") {
+      navigate("/learn");
     } else {
       setCurrentView(view);
     }
