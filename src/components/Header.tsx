@@ -1,26 +1,44 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Globe } from "lucide-react";
-import { Link } from "react-router-dom";
-import { 
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Menu, X } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const menuItems = [
     { name: "Home", href: "#home" },
     { name: "Features", href: "#features" },
     { name: "Translate", href: "/live-translate" },
-    { name: "Learn", href: "#learn" },
+    { name: "Learn", href: "/learn" },
     { name: "Contact", href: "/about" },
     { name: "Dashboard", href: "/dashboard" },
   ];
+
+  // Scroll to top when navigating to new pages
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  const handleNavClick = (href: string, itemName: string) => {
+    if (href.startsWith("#")) {
+      // For anchor links, implement smooth scrolling
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    } else {
+      // For route navigation, scroll to top after navigation
+      navigate(href);
+      setTimeout(() => window.scrollTo(0, 0), 100);
+    }
+    setIsMenuOpen(false);
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60" role="banner">
@@ -28,7 +46,7 @@ const Header = () => {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <Link to="/" className="flex items-center space-x-2 transition-transform hover:scale-105">
+            <Link to="/" className="flex items-center space-x-2 transition-transform hover:scale-105" onClick={() => window.scrollTo(0, 0)}>
               <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-blue-600 to-orange-500"></div>
               <span className="text-xl font-bold text-foreground">SignVerse</span>
             </Link>
@@ -37,50 +55,25 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8" role="navigation">
             {menuItems.map((item) => (
-              item.href.startsWith("/") ? (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus:text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-sm px-2 py-1"
-                >
-                  {item.name}
-                </Link>
-              ) : (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus:text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-sm px-2 py-1"
-                >
-                  {item.name}
-                </a>
-              )
+              <button
+                key={item.name}
+                onClick={() => handleNavClick(item.href, item.name)}
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus:text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-sm px-2 py-1 cursor-pointer"
+              >
+                {item.name}
+              </button>
             ))}
           </nav>
 
           {/* Right side items */}
           <div className="flex items-center space-x-4">
-            {/* Language Dropdown */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="hidden sm:flex" aria-label="Select language">
-                  <Globe className="h-4 w-4 mr-2" />
-                  EN
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem>English</DropdownMenuItem>
-                <DropdownMenuItem>हिंदी</DropdownMenuItem>
-                <DropdownMenuItem>తెలుగు</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
             {/* Auth Buttons */}
             <div className="hidden sm:flex items-center space-x-2">
               <Button variant="ghost" size="sm" asChild>
-                <Link to="/auth">Login</Link>
+                <Link to="/auth" onClick={() => window.scrollTo(0, 0)}>Login</Link>
               </Button>
               <Button size="sm" asChild>
-                <Link to="/auth">Sign Up</Link>
+                <Link to="/auth" onClick={() => window.scrollTo(0, 0)}>Sign Up</Link>
               </Button>
             </div>
 
@@ -103,32 +96,20 @@ const Header = () => {
           <div className="md:hidden border-t">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {menuItems.map((item) => (
-                item.href.startsWith("/") ? (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-md"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                ) : (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-md"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.name}
-                  </a>
-                )
+                <button
+                  key={item.name}
+                  onClick={() => handleNavClick(item.href, item.name)}
+                  className="block w-full text-left px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-md"
+                >
+                  {item.name}
+                </button>
               ))}
               <div className="pt-2 border-t space-y-2">
                 <Button variant="ghost" size="sm" className="w-full justify-start" asChild>
-                  <Link to="/auth">Login</Link>
+                  <Link to="/auth" onClick={() => window.scrollTo(0, 0)}>Login</Link>
                 </Button>
                 <Button size="sm" className="w-full" asChild>
-                  <Link to="/auth">Sign Up</Link>
+                  <Link to="/auth" onClick={() => window.scrollTo(0, 0)}>Sign Up</Link>
                 </Button>
               </div>
             </div>

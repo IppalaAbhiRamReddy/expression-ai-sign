@@ -9,17 +9,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Globe, User } from "lucide-react";
+import { User } from "lucide-react";
 import { DashboardView } from "@/pages/Dashboard";
+import { useNavigate } from "react-router-dom";
 
 interface DashboardHeaderProps {
   onNavigate: (view: DashboardView) => void;
 }
 
 export function DashboardHeader({ onNavigate }: DashboardHeaderProps) {
-  const [selectedLanguage, setSelectedLanguage] = useState("English");
-  
-  const languages = ["English", "हिंदी", "తెలుగు"];
+  const navigate = useNavigate();
 
   return (
     <header className="flex h-16 items-center justify-between border-b px-6" role="banner">
@@ -32,26 +31,6 @@ export function DashboardHeader({ onNavigate }: DashboardHeaderProps) {
       </div>
 
       <div className="flex items-center space-x-4">
-        {/* Language Dropdown */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="sm" aria-label="Select language">
-              <Globe className="h-4 w-4 mr-2" />
-              {selectedLanguage}
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            {languages.map((language) => (
-              <DropdownMenuItem 
-                key={language}
-                onClick={() => setSelectedLanguage(language)}
-              >
-                {language}
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
-
         {/* Profile Dropdown */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -62,11 +41,11 @@ export function DashboardHeader({ onNavigate }: DashboardHeaderProps) {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => onNavigate("settings")}>
+            <DropdownMenuItem onClick={() => navigate("/settings")}>
               <User className="mr-2 h-4 w-4" />
               Profile
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => onNavigate("settings")}>
+            <DropdownMenuItem onClick={() => navigate("/settings")}>
               Settings
             </DropdownMenuItem>
             <DropdownMenuItem className="text-red-600">

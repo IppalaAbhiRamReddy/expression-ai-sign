@@ -2,52 +2,42 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Linkedin, Youtube } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Footer = () => {
+  const navigate = useNavigate();
+
   const footerSections = [
     {
       title: "Platform",
       links: [
         { name: "Live Translation", href: "/live-translate" },
         { name: "Upload Video", href: "/live-translate" },
-        { name: "Learning Path", href: "#learn" }
-      ]
-    },
-    {
-      title: "Resources", 
-      links: [
-        { name: "Help Center", href: "#help" },
-        { name: "ISL Dictionary", href: "#dictionary" },
-        { name: "Community Forum", href: "#forum" },
-        { name: "Blog", href: "#blog" }
+        { name: "Learning Path", href: "/learn" }
       ]
     },
     {
       title: "Company",
       links: [
         { name: "About Us", href: "/about" },
-        { name: "Careers", href: "#careers" },
-        { name: "Press Kit", href: "#press" },
+        { name: "Help Center", href: "#help" },
         { name: "Contact", href: "/about" }
-      ]
-    },
-    {
-      title: "Legal",
-      links: [
-        { name: "Privacy Policy", href: "#privacy" },
-        { name: "Terms of Service", href: "#terms" },
-        { name: "Accessibility", href: "#accessibility" },
-        { name: "Data Security", href: "#security" }
       ]
     }
   ];
+
+  const handleNavigation = (href: string) => {
+    if (href.startsWith("/")) {
+      navigate(href);
+      window.scrollTo(0, 0);
+    }
+  };
 
   return (
     <footer className="bg-gray-900 text-white" role="contentinfo">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand Section */}
           <div className="lg:col-span-2">
             {/* Logo */}
@@ -87,12 +77,12 @@ const Footer = () => {
                 {section.links.map((link, linkIndex) => (
                   <li key={linkIndex}>
                     {link.href.startsWith("/") ? (
-                      <Link 
-                        to={link.href}
-                        className="text-gray-300 hover:text-white transition-colors duration-200 text-sm focus:outline-none focus:text-white focus:underline"
+                      <button
+                        onClick={() => handleNavigation(link.href)}
+                        className="text-gray-300 hover:text-white transition-colors duration-200 text-sm focus:outline-none focus:text-white focus:underline text-left"
                       >
                         {link.name}
-                      </Link>
+                      </button>
                     ) : (
                       <a 
                         href={link.href}

@@ -1,6 +1,6 @@
 
 import { motion } from "framer-motion";
-import { ArrowLeft, Brain, Globe, Wifi, GraduationCap, Mail, Github, Linkedin } from "lucide-react";
+import { ArrowLeft, Brain, Globe, Wifi, GraduationCap, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -206,7 +206,11 @@ const About = () => {
                   22BQ1A4261@vvit.net
                 </a>
               </div>
-              <Button>Send Us a Message</Button>
+              <Button asChild>
+                <a href="mailto:22BQ1A4261@vvit.net?subject=Collaboration Inquiry&body=Hello SignVerse Team,%0D%0A%0D%0AI am interested in collaborating with your project.%0D%0A%0D%0ABest regards">
+                  Send Us a Message
+                </a>
+              </Button>
             </CardContent>
           </Card>
         </motion.section>
