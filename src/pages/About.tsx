@@ -59,33 +59,6 @@ const About = () => {
     }
   ];
 
-  const techStack = [
-    "ReactJS", "TailwindCSS", "Framer Motion", "Firebase", "Python", "FastAPI", "TensorFlow", "MediaPipe"
-  ];
-
-  const timeline = [
-    {
-      date: "Jan 2025",
-      title: "Problem Statement Identified",
-      description: "IASF Expo"
-    },
-    {
-      date: "Feb–Mar 2025",
-      title: "Built MVP",
-      description: "with vision + text"
-    },
-    {
-      date: "Apr 2025",
-      title: "Integrated NMF",
-      description: "+ Expression Detection"
-    },
-    {
-      date: "June 2025",
-      title: "Preparing for Launch",
-      description: "Expo Demo & Launch"
-    }
-  ];
-
   return (
     <div className="min-h-screen bg-background">
       {/* Page Header */}
@@ -211,69 +184,11 @@ const About = () => {
           </div>
         </motion.section>
 
-        {/* Tech Stack */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          aria-labelledby="tech-heading"
-        >
-          <h2 id="tech-heading" className="text-3xl font-bold text-center mb-12">Built With</h2>
-          <div className="flex flex-wrap justify-center gap-4">
-            {techStack.map((tech, index) => (
-              <motion.div
-                key={tech}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3, delay: 0.05 * index }}
-              >
-                <Badge variant="outline" className="text-sm py-2 px-4 hover:bg-primary hover:text-primary-foreground transition-colors">
-                  {tech}
-                </Badge>
-              </motion.div>
-            ))}
-          </div>
-        </motion.section>
-
-        {/* Journey Timeline */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          aria-labelledby="timeline-heading"
-          role="region"
-        >
-          <h2 id="timeline-heading" className="text-3xl font-bold text-center mb-12">Our Journey</h2>
-          <div className="max-w-3xl mx-auto">
-            {timeline.map((step, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 * index }}
-                className="flex gap-4 mb-8 last:mb-0"
-              >
-                <div className="flex flex-col items-center">
-                  <div className="w-4 h-4 rounded-full bg-primary"></div>
-                  {index !== timeline.length - 1 && (
-                    <div className="w-0.5 h-16 bg-border mt-2"></div>
-                  )}
-                </div>
-                <div className="flex-1 pb-8">
-                  <Badge variant="secondary" className="mb-2">{step.date}</Badge>
-                  <h3 className="font-semibold text-lg">{step.title}</h3>
-                  <p className="text-muted-foreground">{step.description}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.section>
-
         {/* Contact CTA */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
           className="text-center"
           aria-labelledby="contact-heading"
         >
@@ -285,19 +200,11 @@ const About = () => {
               <p className="text-muted-foreground">
                 We're always open to educators, NGOs, or devs who want to make sign language tools better.
               </p>
-              <div className="space-y-2">
-                <div className="flex items-center justify-center gap-2">
-                  <Mail className="h-4 w-4" />
-                  <a href="mailto:contact@signverse.ai" className="hover:text-primary">
-                    contact@signverse.ai
-                  </a>
-                </div>
-                <div className="flex items-center justify-center gap-2">
-                  <Mail className="h-4 w-4" />
-                  <a href="mailto:support@signverse.ai" className="hover:text-primary">
-                    support@signverse.ai
-                  </a>
-                </div>
+              <div className="flex items-center justify-center gap-2">
+                <Mail className="h-4 w-4" />
+                <a href="mailto:22BQ1A4261@vvit.net" className="hover:text-primary">
+                  22BQ1A4261@vvit.net
+                </a>
               </div>
               <Button>Send Us a Message</Button>
             </CardContent>
