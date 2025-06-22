@@ -11,6 +11,7 @@ import LiveTranslate from "./pages/LiveTranslate";
 import LearnISL from "./pages/LearnISL";
 import Settings from "./pages/Settings";
 import UploadTranslate from "./pages/UploadTranslate";
+import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/learn" element={<LearnISL />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/upload" element={<UploadTranslate />} />
+          <Route path="/about" element={<About />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
