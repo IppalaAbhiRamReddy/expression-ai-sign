@@ -13,6 +13,37 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 
+const indianStates = [
+  "Andhra Pradesh",
+  "Arunachal Pradesh", 
+  "Assam",
+  "Bihar",
+  "Chhattisgarh",
+  "Goa",
+  "Gujarat",
+  "Haryana",
+  "Himachal Pradesh",
+  "Jharkhand",
+  "Karnataka",
+  "Kerala",
+  "Madhya Pradesh",
+  "Maharashtra",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Odisha",
+  "Punjab",
+  "Rajasthan",
+  "Sikkim",
+  "Tamil Nadu",
+  "Telangana",
+  "Tripura",
+  "Uttar Pradesh",
+  "Uttarakhand",
+  "West Bengal"
+];
+
 const Settings = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -112,16 +143,17 @@ const Settings = () => {
                     </div>
                     
                     <div className="space-y-2">
-                      <Label htmlFor="region">Region</Label>
-                      <Select defaultValue="north">
+                      <Label htmlFor="state">State</Label>
+                      <Select defaultValue="Maharashtra">
                         <SelectTrigger>
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="north">North India</SelectItem>
-                          <SelectItem value="south">South India</SelectItem>
-                          <SelectItem value="east">East India</SelectItem>
-                          <SelectItem value="west">West India</SelectItem>
+                          {indianStates.map((state) => (
+                            <SelectItem key={state} value={state}>
+                              {state}
+                            </SelectItem>
+                          ))}
                         </SelectContent>
                       </Select>
                     </div>

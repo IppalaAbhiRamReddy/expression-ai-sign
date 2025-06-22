@@ -10,8 +10,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Globe, User } from "lucide-react";
+import { DashboardView } from "@/pages/Dashboard";
 
-export function DashboardHeader() {
+interface DashboardHeaderProps {
+  onNavigate: (view: DashboardView) => void;
+}
+
+export function DashboardHeader({ onNavigate }: DashboardHeaderProps) {
   const [selectedLanguage, setSelectedLanguage] = useState("English");
   
   const languages = ["English", "हिंदी", "తెలుగు"];
@@ -57,11 +62,13 @@ export function DashboardHeader() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => onNavigate("settings")}>
               <User className="mr-2 h-4 w-4" />
               Profile
             </DropdownMenuItem>
-            <DropdownMenuItem>Settings</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => onNavigate("settings")}>
+              Settings
+            </DropdownMenuItem>
             <DropdownMenuItem className="text-red-600">
               Logout
             </DropdownMenuItem>

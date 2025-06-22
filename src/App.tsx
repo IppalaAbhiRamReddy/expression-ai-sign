@@ -10,6 +10,7 @@ import Dashboard from "./pages/Dashboard";
 import LiveTranslate from "./pages/LiveTranslate";
 import LearnISL from "./pages/LearnISL";
 import Settings from "./pages/Settings";
+import UploadTranslate from "./pages/UploadTranslate";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/live-translate" element={<LiveTranslate />} />
           <Route path="/learn" element={<LearnISL />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/upload" element={<UploadTranslate />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

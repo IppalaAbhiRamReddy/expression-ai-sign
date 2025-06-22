@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
@@ -23,6 +24,9 @@ const Dashboard = () => {
       navigate("/learn");
     } else if (view === "settings") {
       navigate("/settings");
+    } else if (view === "upload") {
+      // Redirect upload to a dedicated upload page
+      navigate("/upload");
     } else {
       setCurrentView(view);
     }
@@ -76,7 +80,7 @@ const Dashboard = () => {
       <div className="min-h-screen flex w-full">
         <DashboardSidebar currentView={currentView} onNavigate={handleNavigate} />
         <SidebarInset className="flex-1">
-          <DashboardHeader />
+          <DashboardHeader onNavigate={handleNavigate} />
           <main className="flex-1 p-6" role="main">
             {renderContent()}
           </main>
