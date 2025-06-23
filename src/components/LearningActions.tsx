@@ -3,21 +3,12 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Settings, RotateCcw, Bookmark, BookmarkCheck } from "lucide-react";
+import { Settings, RotateCcw } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 export function LearningActions() {
-  const [isBookmarked, setIsBookmarked] = useState(false);
   const [isResetDialogOpen, setIsResetDialogOpen] = useState(false);
   const { toast } = useToast();
-
-  const handleBookmark = () => {
-    setIsBookmarked(!isBookmarked);
-    toast({
-      title: isBookmarked ? "Bookmark removed" : "Bookmark added",
-      description: isBookmarked ? "Removed from your bookmarks" : "Saved to your bookmarks"
-    });
-  };
 
   const handleResetProgress = () => {
     setIsResetDialogOpen(false);
@@ -36,21 +27,6 @@ export function LearningActions() {
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
-        <Button 
-          variant="outline" 
-          size="sm" 
-          className="w-full justify-start"
-          onClick={handleBookmark}
-          aria-label={isBookmarked ? "Remove bookmark" : "Add bookmark"}
-        >
-          {isBookmarked ? (
-            <BookmarkCheck className="h-4 w-4 mr-2" />
-          ) : (
-            <Bookmark className="h-4 w-4 mr-2" />
-          )}
-          {isBookmarked ? "Bookmarked" : "Bookmark Page"}
-        </Button>
-
         <Dialog open={isResetDialogOpen} onOpenChange={setIsResetDialogOpen}>
           <DialogTrigger asChild>
             <Button 
