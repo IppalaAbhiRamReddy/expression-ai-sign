@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Linkedin, Youtube } from "lucide-react";
+import { Linkedin, Youtube, Instagram } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Footer = () => {
@@ -66,33 +66,33 @@ const Footer = () => {
                   <Button variant="secondary" className="bg-blue-600 hover:bg-blue-700">
                     Subscribe
                   </Button>
-                </div>
-                
-                {/* Follow Us Section */}
-                <div className="flex items-center space-x-3">
-                  <span className="text-gray-400 text-sm">Follow us:</span>
-                  <div className="flex items-center space-x-2">
-                    <a 
-                      href="#" 
-                      className="text-gray-400 hover:text-white transition-colors duration-200 p-1 rounded hover:bg-gray-800"
-                      aria-label="Follow us on LinkedIn"
-                    >
-                      <Linkedin className="h-5 w-5" />
-                    </a>
-                    <a 
-                      href="#" 
-                      className="text-gray-400 hover:text-white transition-colors duration-200 p-1 rounded hover:bg-gray-800"
-                      aria-label="Follow us on YouTube"
-                    >
-                      <Youtube className="h-5 w-5" />
-                    </a>
-                    <a 
-                      href="#" 
-                      className="text-gray-400 hover:text-white transition-colors duration-200 p-1 rounded hover:bg-gray-800"
-                      aria-label="Follow us on Instagram"
-                    >
-                      <div className="h-5 w-5 bg-gradient-to-br from-purple-500 via-pink-500 to-orange-500 rounded"></div>
-                    </a>
+                  
+                  {/* Follow Us Section - moved to end of line */}
+                  <div className="flex items-center space-x-2 ml-4">
+                    <span className="text-gray-400 text-sm whitespace-nowrap">Follow us:</span>
+                    <div className="flex items-center space-x-2">
+                      <a 
+                        href="#" 
+                        className="text-gray-400 hover:text-white transition-colors duration-200 p-1 rounded hover:bg-gray-800"
+                        aria-label="Follow us on LinkedIn"
+                      >
+                        <Linkedin className="h-5 w-5" />
+                      </a>
+                      <a 
+                        href="#" 
+                        className="text-gray-400 hover:text-white transition-colors duration-200 p-1 rounded hover:bg-gray-800"
+                        aria-label="Follow us on YouTube"
+                      >
+                        <Youtube className="h-5 w-5" />
+                      </a>
+                      <a 
+                        href="#" 
+                        className="text-gray-400 hover:text-white transition-colors duration-200 p-1 rounded hover:bg-gray-800"
+                        aria-label="Follow us on Instagram"
+                      >
+                        <Instagram className="h-5 w-5" />
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
