@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { GraduationCap, Hand, Smile, Coffee, Users, Play } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface LearningModule {
   id: string;
@@ -76,6 +77,15 @@ const learningModules: LearningModule[] = [
 
 export function LearningModulesGrid({ onModuleSelect }: LearningModulesGridProps) {
   const [hoveredModule, setHoveredModule] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  const handleModuleClick = (module: LearningModule) => {
+    if (module.id === "alphabets") {
+      navigate("/learn/alphabets");
+    } else {
+      onModuleSelect(module.id);
+    }
+  };
 
   return (
     <section>
@@ -150,7 +160,7 @@ export function LearningModulesGrid({ onModuleSelect }: LearningModulesGridProps
 
                 <Button 
                   className="w-full"
-                  onClick={() => onModuleSelect(module.id)}
+                  onClick={() => handleModuleClick(module)}
                   aria-label={`Start learning ${module.title}`}
                 >
                   {module.progress > 0 ? "Continue Learning" : "Start Learning"}
