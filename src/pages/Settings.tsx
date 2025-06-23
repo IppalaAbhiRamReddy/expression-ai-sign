@@ -1,14 +1,13 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, User, Moon, Sun, Upload } from "lucide-react";
+import { ArrowLeft, User, Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
@@ -47,26 +46,11 @@ const indianStates = [
 const Settings = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [darkMode, setDarkMode] = useState(false);
 
   const handleSaveChanges = () => {
     toast({
       title: "Settings saved",
       description: "Your preferences have been updated successfully.",
-    });
-  };
-
-  const handleDarkModeToggle = (checked: boolean) => {
-    setDarkMode(checked);
-    // Add dark mode class to document root
-    if (checked) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-    toast({
-      title: checked ? "Dark mode enabled" : "Light mode enabled",
-      description: `Switched to ${checked ? "dark" : "light"} theme.`,
     });
   };
 
@@ -170,26 +154,6 @@ const Settings = () => {
                           <SelectItem value="telugu">తెలుగు (Telugu)</SelectItem>
                         </SelectContent>
                       </Select>
-                    </div>
-                  </div>
-
-                  {/* Dark Mode Section */}
-                  <div className="pt-6 border-t">
-                    <div className="flex items-center justify-between">
-                      <div className="space-y-0.5">
-                        <Label className="text-base">Dark Mode</Label>
-                        <p className="text-sm text-muted-foreground">
-                          Switch between light and dark themes
-                        </p>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <Sun className="h-4 w-4" />
-                        <Switch
-                          checked={darkMode}
-                          onCheckedChange={handleDarkModeToggle}
-                        />
-                        <Moon className="h-4 w-4" />
-                      </div>
                     </div>
                   </div>
 

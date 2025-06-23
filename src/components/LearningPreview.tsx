@@ -1,11 +1,12 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowUp, ArrowDown } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const LearningPreview = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const navigate = useNavigate();
 
   const learningModules = [
     {
@@ -44,6 +45,11 @@ const LearningPreview = () => {
 
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + learningModules.length) % learningModules.length);
+  };
+
+  const handleExploreClick = () => {
+    navigate("/learn");
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -151,7 +157,11 @@ const LearningPreview = () => {
 
           {/* CTA */}
           <div className="text-center mt-12">
-            <Button size="lg" className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700">
+            <Button 
+              size="lg" 
+              className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700"
+              onClick={handleExploreClick}
+            >
               Explore Learning Path
             </Button>
           </div>

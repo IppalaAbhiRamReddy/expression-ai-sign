@@ -52,19 +52,49 @@ const Footer = () => {
               Breaking barriers, building bridges.
             </p>
 
-            {/* Newsletter Signup */}
-            <div className="space-y-3">
+            {/* Newsletter Signup with Follow Us */}
+            <div className="space-y-4">
               <h4 className="font-semibold text-white">Stay Updated</h4>
-              <div className="flex space-x-2">
-                <Input 
-                  type="email" 
-                  placeholder="Enter your email" 
-                  className="bg-gray-800 border-gray-700 text-white placeholder-gray-400 focus:border-blue-500"
-                  aria-label="Subscribe to newsletter"
-                />
-                <Button variant="secondary" className="bg-blue-600 hover:bg-blue-700">
-                  Subscribe
-                </Button>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex flex-1 space-x-2">
+                  <Input 
+                    type="email" 
+                    placeholder="Enter your email" 
+                    className="bg-gray-800 border-gray-700 text-white placeholder-gray-400 focus:border-blue-500"
+                    aria-label="Subscribe to newsletter"
+                  />
+                  <Button variant="secondary" className="bg-blue-600 hover:bg-blue-700">
+                    Subscribe
+                  </Button>
+                </div>
+                
+                {/* Follow Us Section */}
+                <div className="flex items-center space-x-3">
+                  <span className="text-gray-400 text-sm">Follow us:</span>
+                  <div className="flex items-center space-x-2">
+                    <a 
+                      href="#" 
+                      className="text-gray-400 hover:text-white transition-colors duration-200 p-1 rounded hover:bg-gray-800"
+                      aria-label="Follow us on LinkedIn"
+                    >
+                      <Linkedin className="h-5 w-5" />
+                    </a>
+                    <a 
+                      href="#" 
+                      className="text-gray-400 hover:text-white transition-colors duration-200 p-1 rounded hover:bg-gray-800"
+                      aria-label="Follow us on YouTube"
+                    >
+                      <Youtube className="h-5 w-5" />
+                    </a>
+                    <a 
+                      href="#" 
+                      className="text-gray-400 hover:text-white transition-colors duration-200 p-1 rounded hover:bg-gray-800"
+                      aria-label="Follow us on Instagram"
+                    >
+                      <div className="h-5 w-5 bg-gradient-to-br from-purple-500 via-pink-500 to-orange-500 rounded"></div>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -104,32 +134,6 @@ const Footer = () => {
             {/* Copyright */}
             <div className="text-gray-400 text-sm">
               © 2024 SignVerse. All rights reserved. Made with ❤️ for accessibility.
-            </div>
-
-            {/* Social Links */}
-            <div className="flex items-center space-x-4">
-              <span className="text-gray-400 text-sm mr-2">Follow us:</span>
-              <a 
-                href="#" 
-                className="text-gray-400 hover:text-white transition-colors duration-200"
-                aria-label="Follow us on LinkedIn"
-              >
-                <Linkedin className="h-5 w-5" />
-              </a>
-              <a 
-                href="#" 
-                className="text-gray-400 hover:text-white transition-colors duration-200"
-                aria-label="Follow us on YouTube"
-              >
-                <Youtube className="h-5 w-5" />
-              </a>
-              <a 
-                href="#" 
-                className="text-gray-400 hover:text-white transition-colors duration-200"
-                aria-label="Follow us on Instagram"
-              >
-                <div className="h-5 w-5 bg-gradient-to-br from-purple-500 via-pink-500 to-orange-500 rounded"></div>
-              </a>
             </div>
           </div>
         </div>
