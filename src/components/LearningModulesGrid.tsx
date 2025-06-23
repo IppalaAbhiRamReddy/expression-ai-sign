@@ -82,6 +82,8 @@ export function LearningModulesGrid({ onModuleSelect }: LearningModulesGridProps
   const handleModuleClick = (module: LearningModule) => {
     if (module.id === "alphabets") {
       navigate("/learn/alphabets");
+    } else if (module.id === "greetings") {
+      navigate("/learn/greetings");
     } else {
       onModuleSelect(module.id);
     }

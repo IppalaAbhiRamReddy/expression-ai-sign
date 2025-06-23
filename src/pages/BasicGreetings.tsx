@@ -9,12 +9,30 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { useNavigate } from "react-router-dom";
 
 interface LessonStatus {
-  letter: string;
+  phrase: string;
   completed: boolean;
   inProgress: boolean;
 }
 
-const AlphabetLessons = () => {
+const greetingPhrases = [
+  "Hello!",
+  "Hi, how are you?",
+  "I am fine, thank you.",
+  "Good Morning!",
+  "Good Afternoon!",
+  "Good Evening!",
+  "Good Night!",
+  "Nice to meet you.",
+  "Welcome!",
+  "Please have a seat.",
+  "Sorry, I'm late.",
+  "Thank you very much.",
+  "Take care.",
+  "See you later!",
+  "Goodbye!"
+];
+
+const BasicGreetings = () => {
   const navigate = useNavigate();
   const [progress, setProgress] = useState<LessonStatus[]>([]);
   const [selectedLesson, setSelectedLesson] = useState<string | null>(null);
@@ -22,46 +40,46 @@ const AlphabetLessons = () => {
 
   // Initialize progress from localStorage
   useEffect(() => {
-    const savedProgress = localStorage.getItem("ISL_Alphabet_Progress");
+    const savedProgress = localStorage.getItem("ISL_Greeting_Progress");
     if (savedProgress) {
       setProgress(JSON.parse(savedProgress));
     } else {
       // Initialize all lessons as not started
-      const initialProgress = Array.from({ length: 26 }, (_, i) => ({
-        letter: String.fromCharCode(65 + i),
+      const initialProgress = greetingPhrases.map(phrase => ({
+        phrase,
         completed: false,
         inProgress: false,
       }));
       setProgress(initialProgress);
-      localStorage.setItem("ISL_Alphabet_Progress", JSON.stringify(initialProgress));
+      localStorage.setItem("ISL_Greeting_Progress", JSON.stringify(initialProgress));
     }
   }, []);
 
   const completedCount = progress.filter(lesson => lesson.completed).length;
-  const progressPercentage = (completedCount / 26) * 100;
+  const progressPercentage = (completedCount / 15) * 100;
 
-  const handleLessonClick = (letter: string) => {
-    setSelectedLesson(letter);
+  const handleLessonClick = (phrase: string) => {
+    setSelectedLesson(phrase);
     setIsModalOpen(true);
     
     // Mark as in progress if not completed
     const updatedProgress = progress.map(lesson => 
-      lesson.letter === letter && !lesson.completed 
+      lesson.phrase === phrase && !lesson.completed 
         ? { ...lesson, inProgress: true }
         : lesson
     );
     setProgress(updatedProgress);
-    localStorage.setItem("ISL_Alphabet_Progress", JSON.stringify(updatedProgress));
+    localStorage.setItem("ISL_Greeting_Progress", JSON.stringify(updatedProgress));
   };
 
-  const markAsCompleted = (letter: string) => {
+  const markAsCompleted = (phrase: string) => {
     const updatedProgress = progress.map(lesson => 
-      lesson.letter === letter 
+      lesson.phrase === phrase 
         ? { ...lesson, completed: true, inProgress: false }
         : lesson
     );
     setProgress(updatedProgress);
-    localStorage.setItem("ISL_Alphabet_Progress", JSON.stringify(updatedProgress));
+    localStorage.setItem("ISL_Greeting_Progress", JSON.stringify(updatedProgress));
     setIsModalOpen(false);
   };
 
@@ -78,24 +96,24 @@ const AlphabetLessons = () => {
   };
 
   const scrollToLessons = () => {
-    document.getElementById("alphabet-lessons")?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById("greetings-lessons")?.scrollIntoView({ behavior: "smooth" });
   };
 
   const navigateToNext = () => {
     if (!selectedLesson) return;
-    const currentIndex = selectedLesson.charCodeAt(0) - 65;
-    if (currentIndex < 25) {
-      const nextLetter = String.fromCharCode(66 + currentIndex);
-      setSelectedLesson(nextLetter);
+    const currentIndex = greetingPhrases.indexOf(selectedLesson);
+    if (currentIndex < greetingPhrases.length - 1) {
+      const nextPhrase = greetingPhrases[currentIndex + 1];
+      setSelectedLesson(nextPhrase);
     }
   };
 
   const navigateToPrevious = () => {
     if (!selectedLesson) return;
-    const currentIndex = selectedLesson.charCodeAt(0) - 65;
+    const currentIndex = greetingPhrases.indexOf(selectedLesson);
     if (currentIndex > 0) {
-      const prevLetter = String.fromCharCode(64 + currentIndex);
-      setSelectedLesson(prevLetter);
+      const prevPhrase = greetingPhrases[currentIndex - 1];
+      setSelectedLesson(prevPhrase);
     }
   };
 
@@ -121,9 +139,9 @@ const AlphabetLessons = () => {
           </nav>
           
           <div className="space-y-2">
-            <h1 className="text-4xl font-bold tracking-tight">Learn ISL Alphabets</h1>
+            <h1 className="text-4xl font-bold tracking-tight">Learn Basic ISL Greetings</h1>
             <p className="text-xl text-muted-foreground">
-              Master the 26 alphabet signs of Indian Sign Language, one at a time.
+              Master commonly used greeting phrases with ISL signs.
             </p>
           </div>
         </div>
@@ -141,20 +159,20 @@ const AlphabetLessons = () => {
             <CardHeader>
               <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                 <div className="flex-1 text-center md:text-left">
-                  <CardTitle className="text-2xl mb-3">Start Learning Alphabets A–Z</CardTitle>
+                  <CardTitle className="text-2xl mb-3">Start Learning Basic Greetings</CardTitle>
                   <p className="text-muted-foreground mb-4">
-                    Each lesson includes a short video demonstrating how to sign each letter.
+                    Watch short lessons that teach how to express greetings in ISL.
                   </p>
                   <Button 
                     onClick={scrollToLessons}
                     size="lg"
-                    aria-label="Start Learning Alphabets - scroll to lessons"
+                    aria-label="Start Learning Greetings - scroll to lessons"
                   >
-                    Start Learning Alphabets
+                    Start Learning Greetings
                   </Button>
                 </div>
                 <div className="text-6xl md:text-8xl">
-                  🤲
+                  👋
                 </div>
               </div>
             </CardHeader>
@@ -172,7 +190,7 @@ const AlphabetLessons = () => {
               <CardTitle className="text-lg">Your Progress</CardTitle>
               <div className="space-y-3">
                 <div className="flex justify-between text-sm">
-                  <span>Progress: {completedCount} of 26 letters completed</span>
+                  <span>Progress: {completedCount} of 15 greetings completed</span>
                   <span>{Math.round(progressPercentage)}%</span>
                 </div>
                 <Progress 
@@ -180,8 +198,8 @@ const AlphabetLessons = () => {
                   className="h-3"
                   role="progressbar"
                   aria-valuenow={completedCount}
-                  aria-valuemax={26}
-                  aria-label={`Learning progress: ${completedCount} of 26 letters completed`}
+                  aria-valuemax={15}
+                  aria-label={`Learning progress: ${completedCount} of 15 greetings completed`}
                 />
               </div>
             </CardHeader>
@@ -189,40 +207,40 @@ const AlphabetLessons = () => {
         </motion.div>
 
         {/* Lesson Grid */}
-        <section id="alphabet-lessons">
-          <h2 className="text-2xl font-bold mb-6">Alphabet Lessons</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <section id="greetings-lessons">
+          <h2 className="text-2xl font-bold mb-6">Greeting Lessons</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {progress.map((lesson, index) => (
               <motion.div
-                key={lesson.letter}
+                key={lesson.phrase}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
               >
                 <Card 
                   className="group hover:shadow-lg transition-all duration-300 cursor-pointer"
-                  onClick={() => handleLessonClick(lesson.letter)}
+                  onClick={() => handleLessonClick(lesson.phrase)}
                   role="button"
                   tabIndex={0}
-                  aria-label={`Watch ISL sign for Letter ${lesson.letter}`}
+                  aria-label={`Lesson for: ${lesson.phrase}`}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                       e.preventDefault();
-                      handleLessonClick(lesson.letter);
+                      handleLessonClick(lesson.phrase);
                     }
                   }}
                 >
-                  <CardContent className="p-4 text-center">
+                  <CardContent className="p-4">
                     {/* Thumbnail */}
-                    <div className="w-full aspect-square bg-gradient-to-br from-blue-100 to-orange-100 rounded-lg mb-3 flex items-center justify-center relative overflow-hidden">
-                      <span className="text-2xl font-bold text-gray-700">{lesson.letter}</span>
+                    <div className="w-full aspect-video bg-gradient-to-br from-blue-100 to-orange-100 rounded-lg mb-3 flex items-center justify-center relative overflow-hidden">
+                      <span className="text-4xl">👋</span>
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
                         <Play className="h-6 w-6 text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity" />
                       </div>
                     </div>
 
                     {/* Title */}
-                    <h3 className="font-semibold mb-2">Letter {lesson.letter}</h3>
+                    <h3 className="font-semibold mb-2 text-center">{lesson.phrase}</h3>
 
                     {/* Status */}
                     <div className="flex items-center justify-center space-x-2 text-sm">
@@ -260,10 +278,10 @@ const AlphabetLessons = () => {
               Back to Learning Home
             </Button>
             <Button
-              onClick={() => navigate("/learn/greetings")}
+              onClick={() => navigate("/learn")}
               className="flex items-center"
             >
-              Continue to: Basic Greetings
+              Continue to: Daily Activities
               <ArrowLeft className="h-4 w-4 ml-2 rotate-180" />
             </Button>
           </div>
@@ -279,7 +297,7 @@ const AlphabetLessons = () => {
         >
           <DialogHeader>
             <DialogTitle id="lesson-title">
-              Letter {selectedLesson} - ISL Sign
+              {selectedLesson} - ISL Sign
             </DialogTitle>
           </DialogHeader>
           
@@ -290,14 +308,14 @@ const AlphabetLessons = () => {
                 <Play className="h-12 w-12 text-blue-600 mx-auto mb-2" />
                 <p className="text-sm text-gray-600">Video player would be embedded here</p>
                 <p className="text-xs text-gray-500 mt-1">
-                  Watch the ISL gesture for Letter {selectedLesson}
+                  Watch the ISL gesture for "{selectedLesson}"
                 </p>
               </div>
             </div>
 
             {/* Description */}
             <p className="text-sm text-muted-foreground">
-              Watch the ISL gesture for Letter {selectedLesson}. Practice the hand movement and finger positioning shown in the video.
+              Watch the ISL gesture for "{selectedLesson}". Practice the hand movement and expression shown in the video.
             </p>
 
             {/* Action Buttons */}
@@ -306,7 +324,7 @@ const AlphabetLessons = () => {
                 <Button
                   variant="outline"
                   onClick={navigateToPrevious}
-                  disabled={selectedLesson === 'A'}
+                  disabled={!selectedLesson || greetingPhrases.indexOf(selectedLesson) === 0}
                   className="flex-1"
                 >
                   Previous
@@ -314,7 +332,7 @@ const AlphabetLessons = () => {
                 <Button
                   variant="outline"
                   onClick={navigateToNext}
-                  disabled={selectedLesson === 'Z'}
+                  disabled={!selectedLesson || greetingPhrases.indexOf(selectedLesson) === greetingPhrases.length - 1}
                   className="flex-1"
                 >
                   Next
@@ -335,4 +353,4 @@ const AlphabetLessons = () => {
   );
 };
 
-export default AlphabetLessons;
+export default BasicGreetings;

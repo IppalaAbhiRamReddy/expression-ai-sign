@@ -10,6 +10,7 @@ import Dashboard from "./pages/Dashboard";
 import LiveTranslate from "./pages/LiveTranslate";
 import LearnISL from "./pages/LearnISL";
 import AlphabetLessons from "./pages/AlphabetLessons";
+import BasicGreetings from "./pages/BasicGreetings";
 import Settings from "./pages/Settings";
 import UploadTranslate from "./pages/UploadTranslate";
 import About from "./pages/About";
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/live-translate" element={<LiveTranslate />} />
           <Route path="/learn" element={<LearnISL />} />
           <Route path="/learn/alphabets" element={<AlphabetLessons />} />
+          <Route path="/learn/greetings" element={<BasicGreetings />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/upload" element={<UploadTranslate />} />
           <Route path="/about" element={<About />} />
