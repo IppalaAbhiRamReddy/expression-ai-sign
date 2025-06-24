@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +6,6 @@ import { DashboardSidebar } from "@/components/DashboardSidebar";
 import { DashboardHeader } from "@/components/DashboardHeader";
 import { OverviewCards } from "@/components/OverviewCards";
 import { QuickToolsPanel } from "@/components/QuickToolsPanel";
-import { ActivityFeed } from "@/components/ActivityFeed";
 import { LearningShortcut } from "@/components/LearningShortcut";
 import { UserProfilePanel } from "@/components/UserProfilePanel";
 
@@ -45,7 +43,6 @@ const Dashboard = () => {
             <OverviewCards />
             <QuickToolsPanel onNavigate={handleNavigate} />
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <ActivityFeed />
               <LearningShortcut />
             </div>
           </motion.div>

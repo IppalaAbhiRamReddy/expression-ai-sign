@@ -19,10 +19,11 @@ import {
   Video,
   Upload
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UploadVideoTranslation } from "@/components/UploadVideoTranslation";
 
 export default function LiveTranslate() {
+  const navigate = useNavigate();
   const [isStreaming, setIsStreaming] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [resolution, setResolution] = useState("720p");
@@ -436,6 +437,25 @@ export default function LiveTranslate() {
           </TabsContent>
         </Tabs>
       </div>
+
+      {/* Footer */}
+      <footer className="border-t py-6 mt-12">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
+            <a href="#" className="hover:text-foreground">Privacy Policy</a>
+            <a href="#" className="hover:text-foreground">Terms of Service</a>
+            <button 
+              onClick={() => navigate("/about")}
+              className="hover:text-foreground"
+            >
+              Contact Support
+            </button>
+          </div>
+          <div className="text-center text-sm text-muted-foreground mt-4">
+            © 2025 SignVerse Translation Platform
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

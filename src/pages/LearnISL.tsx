@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, BookOpen, Users, Coffee, Hand } from "lucide-react";
@@ -59,21 +60,6 @@ const LearnISL = () => {
         {/* Learning Actions */}
         <LearningActions />
       </main>
-
-      {/* Learning Footer */}
-      <footer className="border-t py-8 mt-16">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
-            <a href="#" className="hover:text-foreground">ISL Guidelines</a>
-            <a href="#" className="hover:text-foreground">Certification</a>
-            <a href="#" className="hover:text-foreground">FAQs</a>
-            <a href="#" className="hover:text-foreground">Feedback</a>
-          </div>
-          <div className="text-center text-sm text-muted-foreground mt-4">
-            © 2025 SignVerse Learning Platform
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };
