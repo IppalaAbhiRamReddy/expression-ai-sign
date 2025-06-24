@@ -10,7 +10,13 @@ import {
   TableHeader, 
   TableRow 
 } from "@/components/ui/table";
-import { Eye, Trash2 } from "lucide-react";
+import { Eye, Trash2, MoreHorizontal } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface ActivityFeedProps {
   showAll?: boolean;
@@ -52,13 +58,17 @@ export function ActivityFeed({ showAll = false }: ActivityFeedProps) {
 
   if (activityData.length === 0) {
     return (
-      <Card>
+      <Card className="h-fit">
         <CardHeader>
-          <CardTitle>Recent Sessions</CardTitle>
+          <CardTitle className="text-lg">Recent Sessions</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center py-8">
-            <p className="text-muted-foreground">No activity yet. Try translating!</p>
+          <div className="text-center py-12">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-muted flex items-center justify-center">
+              <Eye className="h-8 w-8 text-muted-foreground" />
+            </div>
+            <p className="text-muted-foreground font-medium">No activity yet</p>
+            <p className="text-sm text-muted-foreground mt-1">Try translating to see your sessions here!</p>
           </div>
         </CardContent>
       </Card>
@@ -66,54 +76,67 @@ export function ActivityFeed({ showAll = false }: ActivityFeedProps) {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Recent Sessions</CardTitle>
+    <Card className="h-fit">
+      <CardHeader className="pb-4">
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-lg">Recent Sessions</CardTitle>
+          {!showAll && activityData.length > 3 && (
+            <Button variant="ghost" size="sm" className="text-primary">
+              View All
+            </Button>
+          )}
+        </div>
       </CardHeader>
-      <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Date</TableHead>
-              <TableHead>Type</TableHead>
-              <TableHead>Output</TableHead>
-              <TableHead>Accuracy</TableHead>
-              <TableHead>Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody role="list">
-            {displayData.map((activity) => (
-              <TableRow key={activity.id}>
-                <TableCell>{activity.date}</TableCell>
-                <TableCell>
-                  <Badge variant={activity.type === "Live" ? "default" : "secondary"}>
+      <CardContent className="pt-0">
+        <div className="space-y-4">
+          {displayData.map((activity) => (
+            <div key={activity.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors">
+              <div className="flex-1 space-y-2">
+                <div className="flex items-center gap-3">
+                  <Badge 
+                    variant={activity.type === "Live" ? "default" : "secondary"}
+                    className="text-xs"
+                  >
                     {activity.type}
                   </Badge>
-                </TableCell>
-                <TableCell className="max-w-xs truncate">
+                  <span className="text-sm text-muted-foreground">
+                    {activity.date}
+                  </span>
+                </div>
+                <p className="text-sm font-medium truncate max-w-[300px]">
                   {activity.output}
-                </TableCell>
-                <TableCell>
+                </p>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-muted-foreground">Accuracy:</span>
                   <Badge 
                     variant={activity.accuracy >= 90 ? "default" : "secondary"}
+                    className="text-xs"
                   >
                     {activity.accuracy}%
                   </Badge>
-                </TableCell>
-                <TableCell>
-                  <div className="flex space-x-2">
-                    <Button size="sm" variant="ghost">
-                      <Eye className="h-4 w-4" />
-                    </Button>
-                    <Button size="sm" variant="ghost" className="text-red-600">
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+                </div>
+              </div>
+              
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                    <MoreHorizontal className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem>
+                    <Eye className="mr-2 h-4 w-4" />
+                    View Details
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="text-red-600">
+                    <Trash2 className="mr-2 h-4 w-4" />
+                    Delete
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          ))}
+        </div>
       </CardContent>
     </Card>
   );
