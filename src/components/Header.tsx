@@ -40,6 +40,16 @@ const Header = () => {
     setIsMenuOpen(false);
   };
 
+  const handleSignUpClick = () => {
+    navigate('/auth?mode=signup');
+    window.scrollTo(0, 0);
+  };
+
+  const handleLoginClick = () => {
+    navigate('/auth?mode=login');
+    window.scrollTo(0, 0);
+  };
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60" role="banner">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -69,11 +79,11 @@ const Header = () => {
           <div className="flex items-center space-x-4">
             {/* Auth Buttons */}
             <div className="hidden sm:flex items-center space-x-2">
-              <Button variant="ghost" size="sm" asChild>
-                <Link to="/auth" onClick={() => window.scrollTo(0, 0)}>Login</Link>
+              <Button variant="ghost" size="sm" onClick={handleLoginClick}>
+                Login
               </Button>
-              <Button size="sm" asChild>
-                <Link to="/auth" onClick={() => window.scrollTo(0, 0)}>Sign Up</Link>
+              <Button size="sm" onClick={handleSignUpClick}>
+                Sign Up
               </Button>
             </div>
 
@@ -105,11 +115,11 @@ const Header = () => {
                 </button>
               ))}
               <div className="pt-2 border-t space-y-2">
-                <Button variant="ghost" size="sm" className="w-full justify-start" asChild>
-                  <Link to="/auth" onClick={() => window.scrollTo(0, 0)}>Login</Link>
+                <Button variant="ghost" size="sm" className="w-full justify-start" onClick={handleLoginClick}>
+                  Login
                 </Button>
-                <Button size="sm" className="w-full" asChild>
-                  <Link to="/auth" onClick={() => window.scrollTo(0, 0)}>Sign Up</Link>
+                <Button size="sm" className="w-full" onClick={handleSignUpClick}>
+                  Sign Up
                 </Button>
               </div>
             </div>
