@@ -9,25 +9,23 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { useNavigate } from "react-router-dom";
 
 interface LessonStatus {
-  activity: string;
+  name: string;
   completed: boolean;
   inProgress: boolean;
 }
 
-const dailyActivities = [
-  "Walking",
-  "Running", 
-  "Swimming",
-  "Cycling",
-  "Eating",
-  "Drinking",
-  "Sleeping",
-  "Bathing",
-  "Reading",
-  "Writing"
+const familySigns = [
+  "Father",
+  "Mother", 
+  "Brother",
+  "Sister",
+  "Grandfather",
+  "Grandmother",
+  "Uncle",
+  "Aunt"
 ];
 
-const DailyActivities = () => {
+const FamilySigns = () => {
   const navigate = useNavigate();
   const [progress, setProgress] = useState<LessonStatus[]>([]);
   const [selectedLesson, setSelectedLesson] = useState<string | null>(null);
@@ -35,46 +33,46 @@ const DailyActivities = () => {
 
   // Initialize progress from localStorage
   useEffect(() => {
-    const savedProgress = localStorage.getItem("ISL_DailyActivities_Progress");
+    const savedProgress = localStorage.getItem("ISL_Family_Progress");
     if (savedProgress) {
       setProgress(JSON.parse(savedProgress));
     } else {
       // Initialize all lessons as not started
-      const initialProgress = dailyActivities.map(activity => ({
-        activity,
+      const initialProgress = familySigns.map(sign => ({
+        name: sign,
         completed: false,
         inProgress: false,
       }));
       setProgress(initialProgress);
-      localStorage.setItem("ISL_DailyActivities_Progress", JSON.stringify(initialProgress));
+      localStorage.setItem("ISL_Family_Progress", JSON.stringify(initialProgress));
     }
   }, []);
 
   const completedCount = progress.filter(lesson => lesson.completed).length;
-  const progressPercentage = (completedCount / 10) * 100;
+  const progressPercentage = (completedCount / 8) * 100;
 
-  const handleLessonClick = (activity: string) => {
-    setSelectedLesson(activity);
+  const handleLessonClick = (signName: string) => {
+    setSelectedLesson(signName);
     setIsModalOpen(true);
     
     // Mark as in progress if not completed
     const updatedProgress = progress.map(lesson => 
-      lesson.activity === activity && !lesson.completed 
+      lesson.name === signName && !lesson.completed 
         ? { ...lesson, inProgress: true }
         : lesson
     );
     setProgress(updatedProgress);
-    localStorage.setItem("ISL_DailyActivities_Progress", JSON.stringify(updatedProgress));
+    localStorage.setItem("ISL_Family_Progress", JSON.stringify(updatedProgress));
   };
 
-  const markAsCompleted = (activity: string) => {
+  const markAsCompleted = (signName: string) => {
     const updatedProgress = progress.map(lesson => 
-      lesson.activity === activity 
+      lesson.name === signName 
         ? { ...lesson, completed: true, inProgress: false }
         : lesson
     );
     setProgress(updatedProgress);
-    localStorage.setItem("ISL_DailyActivities_Progress", JSON.stringify(updatedProgress));
+    localStorage.setItem("ISL_Family_Progress", JSON.stringify(updatedProgress));
     setIsModalOpen(false);
   };
 
@@ -91,24 +89,24 @@ const DailyActivities = () => {
   };
 
   const scrollToLessons = () => {
-    document.getElementById("activities-lessons")?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById("family-lessons")?.scrollIntoView({ behavior: "smooth" });
   };
 
   const navigateToNext = () => {
     if (!selectedLesson) return;
-    const currentIndex = dailyActivities.indexOf(selectedLesson);
-    if (currentIndex < dailyActivities.length - 1) {
-      const nextActivity = dailyActivities[currentIndex + 1];
-      setSelectedLesson(nextActivity);
+    const currentIndex = familySigns.indexOf(selectedLesson);
+    if (currentIndex < familySigns.length - 1) {
+      const nextSign = familySigns[currentIndex + 1];
+      setSelectedLesson(nextSign);
     }
   };
 
   const navigateToPrevious = () => {
     if (!selectedLesson) return;
-    const currentIndex = dailyActivities.indexOf(selectedLesson);
+    const currentIndex = familySigns.indexOf(selectedLesson);
     if (currentIndex > 0) {
-      const prevActivity = dailyActivities[currentIndex - 1];
-      setSelectedLesson(prevActivity);
+      const prevSign = familySigns[currentIndex - 1];
+      setSelectedLesson(prevSign);
     }
   };
 
@@ -134,9 +132,9 @@ const DailyActivities = () => {
           </nav>
           
           <div className="space-y-2">
-            <h1 className="text-4xl font-bold tracking-tight">Learn Daily Activities in ISL</h1>
+            <h1 className="text-4xl font-bold tracking-tight">Learn Family Signs in ISL</h1>
             <p className="text-xl text-muted-foreground">
-              Understand and express common everyday activities using sign language.
+              Understand and express family relationships using sign language.
             </p>
           </div>
         </div>
@@ -154,20 +152,20 @@ const DailyActivities = () => {
             <CardHeader>
               <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                 <div className="flex-1 text-center md:text-left">
-                  <CardTitle className="text-2xl mb-3">Start Learning Daily Activities</CardTitle>
+                  <CardTitle className="text-2xl mb-3">Start Learning Family Signs</CardTitle>
                   <p className="text-muted-foreground mb-4">
-                    Short lessons showing signs for daily routine actions.
+                    Short ISL videos demonstrating how to sign family members.
                   </p>
                   <Button 
                     onClick={scrollToLessons}
                     size="lg"
-                    aria-label="Start Daily Activities"
+                    aria-label="Start Learning Family Signs - scroll to lessons"
                   >
-                    Start Learning Activities
+                    Start Learning Family Signs
                   </Button>
                 </div>
                 <div className="text-6xl md:text-8xl">
-                  🏃‍♂️
+                  👨‍👩‍👧‍👦
                 </div>
               </div>
             </CardHeader>
@@ -185,7 +183,7 @@ const DailyActivities = () => {
               <CardTitle className="text-lg">Your Progress</CardTitle>
               <div className="space-y-3">
                 <div className="flex justify-between text-sm">
-                  <span>Progress: {completedCount} of 10 activities completed</span>
+                  <span>Progress: {completedCount} of 8 signs completed</span>
                   <span>{Math.round(progressPercentage)}%</span>
                 </div>
                 <Progress 
@@ -193,8 +191,8 @@ const DailyActivities = () => {
                   className="h-3"
                   role="progressbar"
                   aria-valuenow={completedCount}
-                  aria-valuemax={10}
-                  aria-label={`Learning progress: ${completedCount} of 10 activities completed`}
+                  aria-valuemax={8}
+                  aria-label={`Learning progress: ${completedCount} of 8 signs completed`}
                 />
               </div>
             </CardHeader>
@@ -202,40 +200,40 @@ const DailyActivities = () => {
         </motion.div>
 
         {/* Lesson Grid */}
-        <section id="activities-lessons">
-          <h2 className="text-2xl font-bold mb-6">Daily Activity Lessons</h2>
+        <section id="family-lessons">
+          <h2 className="text-2xl font-bold mb-6">Family Sign Lessons</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {progress.map((lesson, index) => (
               <motion.div
-                key={lesson.activity}
+                key={lesson.name}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
               >
                 <Card 
                   className="group hover:shadow-lg transition-all duration-300 cursor-pointer"
-                  onClick={() => handleLessonClick(lesson.activity)}
+                  onClick={() => handleLessonClick(lesson.name)}
                   role="button"
                   tabIndex={0}
-                  aria-label={`ISL lesson for ${lesson.activity}`}
+                  aria-label={`Watch ISL sign for ${lesson.name}`}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                       e.preventDefault();
-                      handleLessonClick(lesson.activity);
+                      handleLessonClick(lesson.name);
                     }
                   }}
                 >
-                  <CardContent className="p-4">
+                  <CardContent className="p-4 text-center">
                     {/* Thumbnail */}
                     <div className="w-full aspect-square bg-gradient-to-br from-blue-100 to-orange-100 rounded-lg mb-3 flex items-center justify-center relative overflow-hidden">
-                      <span className="text-2xl">🏃‍♂️</span>
+                      <span className="text-lg font-bold text-gray-700">{lesson.name}</span>
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
                         <Play className="h-6 w-6 text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity" />
                       </div>
                     </div>
 
                     {/* Title */}
-                    <h3 className="font-semibold mb-2 text-center">{lesson.activity}</h3>
+                    <h3 className="font-semibold mb-2">{lesson.name}</h3>
 
                     {/* Status */}
                     <div className="flex items-center justify-center space-x-2 text-sm">
@@ -273,11 +271,11 @@ const DailyActivities = () => {
               Back to Learning Home
             </Button>
             <Button
-              onClick={() => navigate("/learn/family-signs")}
+              variant="outline"
               className="flex items-center"
+              disabled
             >
-              Continue to: Family Signs
-              <ArrowLeft className="h-4 w-4 ml-2 rotate-180" />
+              More lessons coming soon...
             </Button>
           </div>
         </motion.footer>
@@ -303,14 +301,14 @@ const DailyActivities = () => {
                 <Play className="h-12 w-12 text-blue-600 mx-auto mb-2" />
                 <p className="text-sm text-gray-600">Video player would be embedded here</p>
                 <p className="text-xs text-gray-500 mt-1">
-                  Learn how to sign "{selectedLesson}" in ISL
+                  Watch the ISL gesture for {selectedLesson}
                 </p>
               </div>
             </div>
 
             {/* Description */}
             <p className="text-sm text-muted-foreground">
-              Learn how to sign "{selectedLesson}" in ISL. Practice the hand movement and gestures shown in the video.
+              This is how to sign '{selectedLesson}' in ISL. Practice the hand movement and gestures shown in the video.
             </p>
 
             {/* Action Buttons */}
@@ -319,7 +317,7 @@ const DailyActivities = () => {
                 <Button
                   variant="outline"
                   onClick={navigateToPrevious}
-                  disabled={!selectedLesson || dailyActivities.indexOf(selectedLesson) === 0}
+                  disabled={selectedLesson === familySigns[0]}
                   className="flex-1"
                 >
                   Previous
@@ -327,7 +325,7 @@ const DailyActivities = () => {
                 <Button
                   variant="outline"
                   onClick={navigateToNext}
-                  disabled={!selectedLesson || dailyActivities.indexOf(selectedLesson) === dailyActivities.length - 1}
+                  disabled={selectedLesson === familySigns[familySigns.length - 1]}
                   className="flex-1"
                 >
                   Next
@@ -348,4 +346,4 @@ const DailyActivities = () => {
   );
 };
 
-export default DailyActivities;
+export default FamilySigns;

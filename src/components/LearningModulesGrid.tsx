@@ -63,14 +63,14 @@ const learningModules: LearningModule[] = [
   },
   {
     id: "family-meeting",
-    title: "Family Meeting",
+    title: "Family Signs",
     description: "Learn signs for family relationships and communication in family gatherings.",
     thumbnail: "👨‍👩‍👧‍👦",
     icon: Users,
     progress: 0,
-    totalLessons: 18,
+    totalLessons: 8,
     completedLessons: 0,
-    duration: "50 min",
+    duration: "40 min",
     level: "Intermediate"
   }
 ];
@@ -86,6 +86,8 @@ export function LearningModulesGrid({ onModuleSelect }: LearningModulesGridProps
       navigate("/learn/greetings");
     } else if (module.id === "daily-activities") {
       navigate("/learn/daily-activities");
+    } else if (module.id === "family-meeting") {
+      navigate("/learn/family-signs");
     } else {
       onModuleSelect(module.id);
     }
