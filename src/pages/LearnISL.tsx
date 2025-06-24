@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, BookOpen, Users, Coffee, Hand } from "lucide-react";
@@ -41,7 +40,7 @@ const LearnISL = () => {
           <div className="space-y-2">
             <h1 className="text-4xl font-bold tracking-tight">Learn Indian Sign Language</h1>
             <p className="text-xl text-muted-foreground">
-              Understand alphabets, expressions, and daily signs through videos &amp; photos
+              Understand alphabets, expressions, and daily signs through videos & photos
             </p>
           </div>
         </div>
