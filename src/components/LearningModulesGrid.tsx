@@ -84,6 +84,8 @@ export function LearningModulesGrid({ onModuleSelect }: LearningModulesGridProps
       navigate("/learn/alphabets");
     } else if (module.id === "greetings") {
       navigate("/learn/greetings");
+    } else if (module.id === "daily-activities") {
+      navigate("/learn/daily-activities");
     } else {
       onModuleSelect(module.id);
     }
